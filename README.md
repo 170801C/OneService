@@ -18,6 +18,7 @@
 
 - app.js
       
+### Directories descriptions 
 - public: resources (e.g. libraries, stylesheets, images)
 
 - client: client-side scripts
