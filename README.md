@@ -1,30 +1,29 @@
 # OneService
 
 ## Project structure (directories)
-- Root
-  - public  
-    - images
-  |   |_ scripts
-  |   |_ stylesheets
-  |
-  |_ client
-  |   |_ views
-  |       |_ pages
-  |       |_ partials
-  |
-  |_ server
-  |    |_ config 
-  |    |_ controllers 
-  |    |_ models
-  |
-  |_ app.js
+- public  
+  - images
+   - scripts
+   - stylesheets
+
+- client
+  - views
+   - pages
+   - partials
+ 
+- server
+  - config 
+  - controllers 
+  - models
+
+- app.js
       
 - public: resources (e.g. libraries, stylesheets, images)
 
 - client: client-side scripts
   - views: client views
-    - pages: views
-    - partials: view templates 
+   - pages: views
+   - partials: view templates 
 
 - server: server-side scripts
   - config: specific configurations
