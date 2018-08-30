@@ -1,6 +1,3 @@
-<<<<<<< HEAD
-# OneService
-=======
 # OneService
 
 ## Project structure (directories)
@@ -38,7 +35,3 @@
 
 ## Main tech stack
 Node, Express, EJS (templating engine), Sequelize, Microsoft SQL Server/MySQL
-
-
-
->>>>>>> 254ad27af765afe606e224b8bbf29df98c15bc8d
