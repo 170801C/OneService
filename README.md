@@ -31,7 +31,7 @@
   - controllers: backend scripts for client views
   - models: database tables setup by Sequelize
 
-- app.js: tie in all directories, create and runs the application instance. 
+- app.js: tie in all directories, create and run the application instance
 
 ## Main tech stack
 Node, Express, EJS (templating engine), Sequelize, Microsoft SQL Server/MySQL
