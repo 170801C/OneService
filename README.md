@@ -35,4 +35,4 @@
 - app.js: tie in all directories, create and run the application instance
 
 ## Main tech stack
-Node, Express, [EJS (templating engine)] (http://ejs.co/), Sequelize, Microsoft SQL Server/MySQL
+Node, Express, EJS (templating engine) (http://ejs.co/), Sequelize, Microsoft SQL Server/MySQL
