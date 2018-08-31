@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>
+        <%= title %>
+    </title>
+
+    <% include ../partials/stylesheet %>
+</head>
+
+<body>
+    <div class="container">
+        <% include ../partials/header %>
+
+        <div>
+            <h1>
+                <%= title %>
+            </h1>
+        </div>
+
+        <p class="lead">Welcome to
+            <%= title %>
+        </p>
+    </div>
+
+    <% include ../partials/script %>
+</body>
+
+</html>
