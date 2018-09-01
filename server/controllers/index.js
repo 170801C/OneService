@@ -1,5 +1,7 @@
 var Models = require('../models')
 var Facilities = Models.Facilities
+
+
 exports.show = function (req, res) {
     Models.sequelize.query(`select * from Facilities`, { model: Facilities})
     .then((facility) => {
