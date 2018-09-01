@@ -1,7 +1,6 @@
 // Import modules
 var data = require('./data')
 
-
 // Exports: show 
 exports.show = function (req, res) {
     res.render('index', {           // Render index.ejs template 
