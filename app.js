@@ -40,27 +40,24 @@ app.use('/public', express.static('public'));
 // Routes
 // Index page route 
 app.get('/', index.show);
+app.get('/data', data.show)
 
-console.log("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA")
-console.log(data.show)
+// Errors catch and error handlers
+// Catch 404 error and forward it to error handler
+app.use(function (req, res, next) {
+    var err = new Error('Not Found');
+    err.status = 404;
+    next(err);
+});
 
-
-// // Errors catch and error handlers
-// // Catch 404 error and forward it to error handler
-// app.use(function (req, res, next) {
-//     var err = new Error('Not Found');
-//     err.status = 404;
-//     next(err);
-// });
-
-// // Catch production errors and forward it to error handler. No stacktraces leaked to user
-// app.use(function (err, req, res, next) {
-//     res.status(err.status || 500);
-//     res.render('error', {
-//         message: err.message,
-//         error: {}
-//     });
-// });
+// Catch production errors and forward it to error handler. No stacktraces leaked to user
+app.use(function (err, req, res, next) {
+    res.status(err.status || 500);
+    res.render('error', {
+        message: err.message,
+        error: {}
+    });
+});
 
 
 // Setup Server
