@@ -5,15 +5,6 @@ var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var multer = require('multer');
-var upload = multer({ dest: './public/uploads/', limits: { fileSize: 150000000000000, files: 1 } });
-
-// Modules to store session
-var myDatabase = require('./server/controllers/database');
-var expressSession = require('express-session');
-var SessionStore = require('express-session-sequelize')(expressSession.Store);
-var sequelizeSessionStore = new SessionStore({
-    db: myDatabase.sequelize,
-});
 
 // Import controllers
 var index = require('./server/controllers/index');
@@ -24,11 +15,9 @@ var app = express();
 var serverPort = 3000;
 var httpServer = require('http').Server(app);
 
-
 // Setup view engine (EJS)
 app.set('views', path.join(__dirname, 'client/views/pages'));
 app.set('view engine', 'ejs');
-
 
 // Use middlewares
 app.use(logger('dev'));
@@ -77,7 +66,7 @@ console.log(data.show)
 // Setup Server
 app.set('port', serverPort);
 var server = httpServer.listen(app.get('port'), function () {
-    console.log('HTTP Server listening on port' + server.address().port);
+    console.log('HTTP Server listening on port ' + server.address().port);
 });
 
 
