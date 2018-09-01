@@ -2,6 +2,7 @@
 var express = require('express');
 var path = require('path');
 var logger = require('morgan');
+var session = require('express-session');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var multer = require('multer');
@@ -14,6 +15,17 @@ var data = require('./server/controllers/data')
 var app = express();
 var serverPort = 3000;
 var httpServer = require('http').Server(app);
+
+// Store session 
+var SequelizeStore = require('connect-session-sequelize')(session.Store);
+var models = require("./server/models");
+var sequelize = models.sequelize
+
+// Session store sync
+var myStore = new SequelizeStore({
+    db: sequelize
+})
+myStore.sync();
 
 // Setup view engine (EJS)
 app.set('views', path.join(__dirname, 'client/views/pages'));
