@@ -17,7 +17,7 @@ var sequelizeSessionStore = new SessionStore({
 
 // Import controllers
 var index = require('./server/controllers/index');
-
+var data = require('./server/controllers/data')
 
 // Create server
 var app = express();
@@ -51,6 +51,9 @@ app.use('/public', express.static('public'));
 // Routes
 // Index page route 
 app.get('/', index.show);
+
+console.log("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA")
+console.log(data.show)
 
 
 // // Errors catch and error handlers
