@@ -40,7 +40,7 @@ app.use('/public', express.static('public'));
 // Routes
 // Index page route 
 app.get('/', index.show);
-app.get('/data', data.show)
+
 
 // Errors catch and error handlers
 // Catch 404 error and forward it to error handler

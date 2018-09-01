@@ -4,19 +4,28 @@
     <title>
         <%= title %>
     </title>
+
+    <% include ../partials/header%>
 </head>
 <body>
-    <div class="container">     
-        <% include ../partials/header %>
-        <div>
-            <h1>
+  
+    <div class="container bg-primary">     
+        <div class="mx-auto  bg-info">
+            <h1 class="mt-5">
                 <%= title %>
             </h1>
         </div>
+
+            <div class="col-sm-4 mx-auto center-block bg-warning">
         <p class="lead">Welcome to
             <%= title %>
-        </p>
+        </p>  
+        </div>
         <h4>List facilities</h4>
+        
     </div>
+
+
+    <% include ../partials/script %>
 </body>
 </html>
