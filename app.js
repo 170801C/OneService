@@ -9,7 +9,8 @@ var multer = require('multer');
 
 // Import controllers
 var index = require('./server/controllers/index');
-var data = require('./server/controllers/data')
+var data = require('./server/controllers/data');
+var result = require('./server/controllers/result');
 
 // Create server
 var app = express();
@@ -50,9 +51,8 @@ app.use('/public', express.static('public'));
 
 
 // Routes
-// Index page route 
 app.get('/', index.show);
-
+app.get('/result', result.show);
 
 // Errors catch and error handlers
 // Catch 404 error and forward it to error handler
