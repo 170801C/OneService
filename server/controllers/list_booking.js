@@ -6,7 +6,7 @@ var Facilities = Models.Facilities
 exports.show = function (req, res) {
     // Models.sequelize.query(`select * from Facilities where....`, { model: Facilities})
     // .then((facility) => {
-    res.render('booking', {
+    res.render('list_booking', {
         title: 'One Booking',
         // facilities: facility
     })

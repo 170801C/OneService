@@ -4,6 +4,8 @@
 <head>
     <% include ../partials/header%>
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+        <link rel="stylesheet" href="./public/stylesheets/notification.css">
+
 
         <title>
             <%= title %>
@@ -99,12 +101,57 @@
             </label>
         </div>
 
-
-
-
         <br>
-        <input class="btn btn-primary" type="submit" value="Submit">
+
+        <button type="submit" class="btn btn-primary" data-toggle="modal" data-target="#myModal">Book</button>
+
+        <!-- Modal -->
+        <div class="modal fade text-center" id="myModal" role="dialog">
+            <div class="modal-dialog">
+
+                <!-- Modal content-->
+                <div class="modal-content" style="height: 200px">
+                    <div id="modal_content" class="my-auto">
+                        <h5>$3.50 will be deducted from your e-wallet.</h5>
+                        <h5 class="font-weight-bold">Confirm booking?</h5>
+                    </div>
+
+                    <div class="mb-2 mx-auto">
+
+                        <button id="yes" type="button" class="btn btn-default">
+                            <i class="fa fa-check" style="font-size: 20px"></i>
+                        </button>
+
+                        <button id="no" type="button" class="btn btn-danger" data-dismiss="modal">
+                            <i class="fa fa-times" style="font-size: 20px"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
+
+    <% include ../partials/reminder%>
+
+        <script>
+
+            document.getElementById("yes").addEventListener("click", first());
+
+            function first() {
+                document.getElementById("modal_content").innerHTML = `<h5 class="font-weight-bold">Booking confirmed!</h5> <h5>Would you like to be notified if your preferred booking opens up?</h5>`
+
+
+            }
+
+                    if (document.getElementById("yes").onclick()) {
+                        document.getElementById("modal_content").innerHTML = `<h5>Got it, you'll be notified if your preferred booking opens up :)</h5>`
+
+                    }
+
+
+                }
+ 
+        </script>
 </body>
 
 </html>

@@ -3,10 +3,10 @@
 
 <head>
     <% include ../partials/header%>
-    
-    <title>
-        <%= title %>
-    </title>
+
+        <title>
+            <%= title %>
+        </title>
 </head>
 
 <body>
@@ -21,9 +21,9 @@
                             <option value="Field">Field</option>
                             <option value="Swimming pool">Swimming pool</option>
                             <option value="BBQ pit">BBQ pit</option>
-                        </select>     
+                        </select>
                     </h4>
-                </div> 
+                </div>
                 <div class="pt-4">
                     <h4 class="font-weight-bold">
                         At
@@ -37,9 +37,10 @@
                         for
                         <select class="form-control ml-1 mr-1" name="price" id="price" style="max-width:90px;font-size: 1rem;vertical-align: 3px;display: inline;">
                             <option value="Free">Free</option>
-                            <option value="less 10"> < $10</option>
-                            <option value="10 to 20">$10 - $20</option>
-                            <option value="more 20">> $20</option>
+                            <option value="less 10">
+                                < $10</option>
+                                    <option value="10 to 20">$10 - $20</option>
+                                    <option value="more 20">> $20</option>
                         </select>
                     </h4>
                 </div>
@@ -73,6 +74,8 @@
             </form>
         </div>
     </div>
+
+    <% include ../partials/reminder%>
 </body>
 
 </html>

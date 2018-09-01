@@ -1,0 +1,26 @@
+<a href="./list_booking">
+    <div id="reminder" class="fixed-top row" style="display: none; background-color: white; height: 30%; z-index: 2; box-shadow: 1px 1px 10px grey">
+        <div class="position-relative row h-100">
+            <div class="col-12 my-auto pl-5">
+                <img id="img" class="img-fluid img-responsive float-left mr-3" src="./public/images/Reservationsv2-01.png" style="max-width: 100px; max-height: 100px"
+                />
+
+                <div id="text" style="line-height: 0.5; color: black">
+                    <h4 style="font-weight: 900;">Badminton court session</h4>
+
+                    <p>Bishan Sports Hall</p>
+                    <p>Today</p>
+                    <p>10PM-12PM</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</a>
+
+<script>
+    function reminder() {
+        document.getElementById("reminder").style.display = "block";
+    }
+
+    window.setTimeout(reminder, 180000);      // Set to 3min, to pop up after presentation
+</script>
