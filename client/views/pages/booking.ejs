@@ -118,7 +118,7 @@
 
                     <div class="mb-2 mx-auto">
 
-                        <button id="yes" type="button" class="btn btn-default">
+                        <button onclick="yes()" id="yes" type="button" class="btn btn-default">
                             <i class="fa fa-check" style="font-size: 20px"></i>
                         </button>
 
@@ -134,23 +134,18 @@
     <% include ../partials/reminder%>
 
         <script>
-
-            document.getElementById("yes").addEventListener("click", first());
-
-            function first() {
-                document.getElementById("modal_content").innerHTML = `<h5 class="font-weight-bold">Booking confirmed!</h5> <h5>Would you like to be notified if your preferred booking opens up?</h5>`
-
-
-            }
-
-                    if (document.getElementById("yes").onclick()) {
-                        document.getElementById("modal_content").innerHTML = `<h5>Got it, you'll be notified if your preferred booking opens up :)</h5>`
-
-                    }
-
-
+            var counter = 0;
+            
+            function yes() {
+                if (counter == 0) {
+                    document.getElementById("modal_content").innerHTML = `<h5 class="font-weight-bold">Booking confirmed!</h5> <h5>Would you like to be notified if your preferred booking opens up?</h5>`
+                    counter++;
+                }   
+                else if (counter == 1) {
+                    document.getElementById("modal_content").innerHTML = `<h5>Got it, you'll be notified if your preferred booking opens up :)</h5>`;
+                    location.href = "./list_booking";
                 }
- 
+            }
         </script>
 </body>
 
