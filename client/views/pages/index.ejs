@@ -70,11 +70,17 @@
                         </select>
                     </h4>
                 </div>
-                <button type="button" class="btn btn-outline-default btn-block rounded font-weight-bold waves-effect waves-light" style="font-size:1rem;-webkit-border-radius:10em!important;border-radius:10em!important;margin-top: 150px;">Start Booking</button>
+                <button onclick="book()" type="button" class="btn btn-outline-default btn-block rounded font-weight-bold waves-effect waves-light" style="font-size:1rem;-webkit-border-radius:10em!important;border-radius:10em!important;margin-top: 150px;">Start Booking</button>
             </form>
         </div>
     </div>
 
+    <script>
+        function book() {
+            location.href = "./booking"
+        }
+    </script>
+    
     <% include ../partials/reminder%>
 </body>
 

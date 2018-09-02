@@ -1,0 +1,66 @@
+<div id="open_slot" class="fixed-top row" style="display: none; background-color: white; height: 30%; z-index: 2; box-shadow: 1px 1px 10px grey">
+    <div class="position-relative row h-100">
+        <div class="col-12 mx-auto text-center my-auto">
+
+            <div id="content" class="ml-5 mr-5" id="text" style="line-height: 0.5; color: black">
+                <h4 id="head" style="font-weight: 900;">Your preferred slot has opened up!</h4>
+                <h5 id="body">Take it up?</h5>
+            </div>
+
+            <div id="buttons" class="mb-2 mx-auto">
+                <button onclick="yes()" id="yes" type="button" class="btn btn-default">
+                    <i class="fa fa-check" style="font-size: 20px"></i>
+                </button>
+
+                <button id="no" type="button" class="btn btn-danger" data-dismiss="modal">
+                    <i class="fa fa-times" style="font-size: 20px"></i>
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<script>
+    var counter = 0;
+
+    function yes() {
+        if (counter == 0) {
+            document.getElementById("open_slot").style.height = "40%"
+            document.getElementById("head").innerHTML = `<h5 class="font-weight-bold">Oops!</h5>`
+            document.getElementById("body").innerHTML =
+                `<p style="line-height: 1">It looks like you have a similar booking.
+                Would you like to cancel your current booking and take up your preferred booking?</p>`
+
+            counter++
+        }
+        else if (counter == 1) {
+            document.getElementById("open_slot").style.height = "40%"
+            var buttons =  document.getElementById("buttons")
+            buttons.removeChild(buttons.childNodes[1])
+            buttons.removeChild(buttons.childNodes[2])
+
+            document.getElementById("content").innerHTML =
+                `<h5 class="font-weight-bold">Cancelled</h5>
+                <p style="line-height: 1"><span class="font-weight-bold">Badminton court</span>
+                <br>
+                Telok Blangah CC
+                <br>
+                450 Telok Blangah Street 31, Singapore 108943
+                <br>
+                10PM-12PM</p>`;
+
+            window.setTimeout(thing, 5000);
+
+            function thing() {
+                location.href = "./booking";
+            }
+        }
+    }
+
+    function open_slot() {
+        document.getElementById("open_slot").style.display = "block";
+    }
+
+    window.setTimeout(reminder, 180000);      // Set to 3min, to pop up after presentation
+</script>
