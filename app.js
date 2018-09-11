@@ -13,6 +13,7 @@ var data = require('./server/controllers/data');
 var result = require('./server/controllers/result');
 var booking = require('./server/controllers/booking')
 var booking2 = require('./server/controllers/booking2')
+var note = require('./server/controllers/note');
 var list_booking = require('./server/controllers/list_booking')
 var list_booking2 = require('./server/controllers/list_booking2')
 
@@ -62,6 +63,7 @@ app.get('/booking', booking.show);
 app.get('/booking2', booking2.show)
 app.get('/list_booking', list_booking.show)
 app.get('/list_booking2', list_booking2.show)
+app.get('/note', note.show)
 
 
 // Errors catch and error handlers

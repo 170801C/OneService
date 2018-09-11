@@ -1,87 +1,488 @@
-<!DOCTYPE html>
-<html>
+<!doctype html>
+<!--
+  Material Design Lite
+  Copyright 2015 Google Inc. All rights reserved.
 
-<head>
-    <% include ../partials/header%>
+  Licensed under the Apache License, Version 2.0 (the "License");
+  you may not use this file except in compliance with the License.
+  You may obtain a copy of the License at
 
-        <title>
-            <%= title %>
-        </title>
-</head>
+      https://www.apache.org/licenses/LICENSE-2.0
 
-<body>
-    <div class="container mt-5">
-        <div class="text-center">
-            <form action="" id=selection>
-                <div class="pt-5" style="margin-top:80px">
-                    <h4 class="font-weight-bold">I'd like to book
-                        <select class="custom-select ml-1" name="facility" id="facility" style="max-width:160px;font-size: 1rem;vertical-align: 3px;">
-                            <option value="Badminton court">Badminton court</option>
-                            <option value="Basketball court">Basketball court</option>
-                            <option value="Field">Field</option>
-                            <option value="Swimming pool">Swimming pool</option>
-                            <option value="BBQ pit">BBQ pit</option>
-                        </select>
-                    </h4>
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License
+-->
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="description" content="A front-end template that helps you build fast, modern mobile web apps.">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0">
+        <title>OneBooking</title>
+
+        <!-- Add to homescreen for Chrome on Android -->
+        <meta name="mobile-web-app-capable" content="yes">
+        <link rel="icon" sizes="192x192" href="images/android-desktop.png">
+
+        <!-- Add to homescreen for Safari on iOS -->
+        <meta name="apple-mobile-web-app-capable" content="yes">
+        <meta name="apple-mobile-web-app-status-bar-style" content="black">
+        <meta name="apple-mobile-web-app-title" content="Material Design Lite">
+        <link rel="apple-touch-icon-precomposed" href="images/ios-desktop.png">
+
+        <!-- Tile icon for Win8 (144x144 + tile color) -->
+        <meta name="msapplication-TileImage" content="images/touch/ms-touch-icon-144x144-precomposed.png">
+        <meta name="msapplication-TileColor" content="#3372DF">
+
+        <link rel="shortcut icon" href="images/favicon.png">
+
+        <!-- SEO: If your mobile URL is different from the desktop URL, add a canonical link to the desktop page https://developers.google.com/webmasters/smartphone-sites/feature-phones -->
+        <!--
+        <link rel="canonical" href="http://www.example.com/">
+        -->
+
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:regular,bold,italic,thin,light,bolditalic,black,medium&amp;lang=en">
+        <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+        <link rel="stylesheet" href="https://code.getmdl.io/1.3.0/material.deep_purple-pink.min.css">
+        <link rel="stylesheet" href="css/styles.css">
+        <link rel="stylesheet" href="css/getmdl-select.min.css">
+        <link rel="stylesheet" href="css/mdDateTimePicker.css">
+        <link rel="stylesheet" href="css/leaflet.css" />
+        <link rel="stylesheet" href="js/leaflet-routing-machine.css" />
+
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/dialog-polyfill/0.4.2/dialog-polyfill.min.css">
+
+        <script src="js/leaflet.js"></script>
+        <script src="js/bouncemarker.js"></script>
+
+        <script src="js/leaflet-routing-machine.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/dialog-polyfill/0.4.2/dialog-polyfill.min.js"></script>
+
+        <style>
+            #view-source {
+                position: fixed;
+                display: block;
+                right: 0;
+                bottom: 0;
+                margin-right: 40px;
+                margin-bottom: 40px;
+                z-index: 900;
+            }
+
+            #mdl-menu {
+                /*z-index: 901;*/
+            }
+
+            .mdl-color--primary-dark, .mdl-button--colored {
+                background-color: #2BBBAD !important;
+            }
+
+            .mdl-color--primary#bgimg{
+                background-image: url("images/safra.jpg");
+                background-position: center; /* Center the image */
+            }
+
+            .text-default {
+                color: #2bbbad!important;
+            }
+
+            .text-success {
+                color: green;
+            }
+
+            .text-muted{
+                color: grey;
+            }
+        </style>
+    </head>
+    <body class="mdl-demo mdl-color--grey-100 mdl-color-text--grey-700 mdl-base">
+        <div class="mdl-layout mdl-js-layout mdl-layout--fixed-header">
+            <header class="mdl-layout__header mdl-layout__header--scroll" style="background:white!important">
+
+                <div class="mdl-layout__tab-bar mdl-js-ripple-effect mdl-color--primary-dark">
+                    <a href="#new" class="mdl-layout__tab is-active">New Booking</a>
+                    <a href="#record" class="mdl-layout__tab">Booking Record</a>
+                    <a href="#announcement" class="mdl-layout__tab">Announcement</a>
                 </div>
-                <div class="pt-4">
-                    <h4 class="font-weight-bold">
-                        At
-                        <select class="custom-select ml-1 mr-1" name="location" id="location" style="max-width:150px;font-size: 1rem;vertical-align: 3px;">
-                            <option value="Near me">Near me</option>
-                            <option value="Bishan">Bishan</option>
-                            <option value="Clementi">Clementi</option>
-                            <option value="Toa Payoh">Toa Payoh</option>
-                            <option value="Bedok">Bedok</option>
-                        </select>
-                        for
-                        <select class="form-control ml-1 mr-1" name="price" id="price" style="max-width:90px;font-size: 1rem;vertical-align: 3px;display: inline;">
-                            <option value="Free">Free</option>
-                            <option value="less 10">
-                                < $10</option>
-                                    <option value="10 to 20">$10 - $20</option>
-                                    <option value="more 20">> $20</option>
-                        </select>
-                    </h4>
-                </div>
-                <div class="pt-4 mt-2">
-                    <h4 class="font-weight-bold">
-                        On
-                        <div class="form-group d-inline-block">
-                            <input class="form-control" type="date" name="date" id="date" style="max-width:160px;font-size: 1rem;vertical-align: 3px;">
+            </header>
+            <main class="mdl-layout__content">
+                <div class="mdl-layout__tab-panel is-active" id="new">
+
+                    <section class="section--center mdl-grid mdl-grid--no-spacing mdl-shadow--2dp">
+                        <div class="mdl-card mdl-cell mdl-cell--12-col">
+                            <div class="mdl-card__supporting-text">
+                                <h4>I'd like to book</h4>
+                                <!-- Simple Select -->
+                                <div class="mdl-textfield mdl-js-textfield getmdl-select">
+                                    <input type="text" value="" class="mdl-textfield__input" id="sample1" readonly>
+                                    <input type="hidden" value="" name="sample1">
+                                    <label for="sample1" class="mdl-textfield__label">a Facility</label>
+                                    <ul for="sample1" class="mdl-menu mdl-menu--bottom-left mdl-js-menu">
+                                        <li class="mdl-menu__item" data-val="DEU">Badminton court</li>
+                                        <li class="mdl-menu__item" data-val="BLR">Tennis court</li>
+                                        <li class="mdl-menu__item" data-val="RUS">BBQ pit</li>
+                                    </ul>
+                                </div>	
+
+
+<!--  -->
+                                <h4>At</h4>
+                                <div class="mdl-textfield mdl-js-textfield getmdl-select">
+                                    <input type="text" value="" class="mdl-textfield__input" id="sample2" readonly>
+                                    <input type="hidden" value="" name="sample1">
+                                    <label for="sample2" class="mdl-textfield__label">this location</label>
+                                    <ul for="sample2" class="mdl-menu mdl-menu--bottom-left mdl-js-menu">
+                                        <li class="mdl-menu__item" data-val="DEU">Near Me</li>
+                                        <li class="mdl-menu__item" data-val="BLR">Ang Mo Kio</li>
+                                        <li class="mdl-menu__item" data-val="RUS">Bishan</li>
+                                        <li class="mdl-menu__item" data-val="RUS">Clementi</li>
+                                        <li class="mdl-menu__item" data-val="RUS">Dover</li>
+                                        <li class="mdl-menu__item" data-val="RUS">Pasir Panjang</li>
+                                    </ul>
+                                </div>	
+
+                                for
+
+                                <div class="mdl-textfield mdl-js-textfield getmdl-select">
+                                    <input type="text" value="" class="mdl-textfield__input" id="sample3" readonly>
+                                    <input type="hidden" value="" name="sample1">
+                                    <label for="sample3" class="mdl-textfield__label">this fee</label>
+                                    <ul for="sample3" class="mdl-menu mdl-menu--bottom-left mdl-js-menu">
+                                        <li class="mdl-menu__item" data-val="DEU">Free</li>
+                                        <li class="mdl-menu__item" data-val="BLR">< $10</li>
+                                        <li class="mdl-menu__item" data-val="RUS">$10 - $20</li>
+                                        <li class="mdl-menu__item" data-val="RUS">> $20</li>
+                                    </ul>
+                                </div>
+
+                                <h4>On</h4>
+                                <div class="mdl-textfield mdl-js-textfield">
+                                    <input class="mdl-textfield__input mdl-datepicker__input" type="text" id="date" value="02 Sep 2018">
+                                    <label class="mdl-textfield__label" for="date">this date</label>
+                                </div>
+
+
+                                <div class="mdl-textfield mdl-js-textfield getmdl-select">
+                                    <input type="text" value="" class="mdl-textfield__input" id="sample5" readonly>
+                                    <input type="hidden" value="" name="sample4">
+                                    <label for="sample5" class="mdl-textfield__label">this timing</label>
+                                    <ul for="sample5" class="mdl-menu mdl-menu--bottom-left mdl-js-menu">
+                                        <li class="mdl-menu__item" data-val="DEU">8AM - 9AM</li>
+                                        <li class="mdl-menu__item" data-val="BLR">9AM - 10AM</li>
+                                        <li class="mdl-menu__item" data-val="RUS">10AM - 11AM</li>
+                                        <li class="mdl-menu__item" data-val="RUS">11AM - 12PM</li>
+                                        <li id="fullslot" class="mdl-menu__item" data-val="RUS">8PM - 9PM</li>
+                                    </ul>
+                                </div>  	
+                                <br><br>
+                                <div class="mdl-card__actions">
+                                <!-- Raised button with ripple -->
+                                <a href="/result">
+                                <button class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored">
+                                    Start Booking
+                                </button>
+                                </a>
+                            </div>
+                                <br><br><br><br><br><br><br><br><br><br><br><br><br>
+                                <div id='mapdiv' style='height:300px;'></div>
+                            </div>
+                            
                         </div>
-                        <select class="form-control ml-1 mr-1" name="time" id="time" style="max-width:120px;font-size: 1rem;display: inline-block; height: 40px;">
-                            <option value="8AM-9AM">8AM-9AM</option>
-                            <option value="9AM-10AM">9AM-10AM</option>
-                            <option value="8AM-9AM">8AM-9AM</option>
-                            <option value="11AM-12PM">11AM-12PM</option>
-                            <option value="12PM-1PM">12PM-1PM</option>
-                            <option value="1PM-2PM">1PM-2PM</option>
-                            <option value="2PM-3PM">2PM-3PM</option>
-                            <option value="3PM-4PM">3PM-4PM</option>
-                            <option value="4PM-5PM">4PM-5PM</option>
-                            <option value="5PM-6PM">5PM-6PM</option>
-                            <option value="6PM-7PM">6PM-7PM</option>
-                            <option value="7PM-8PM">7PM-8PM</option>
-                            <option value="8PM-9PM">8PM-9PM</option>
-                            <option value="9PM-10PM">9PM-10PM</option>
-                            <option value="10PM-11PM">10PM-11PM</option>
-                            <option value="11PM-12PM">11PM-12PM</option>
-                        </select>
-                    </h4>
+
+                    </section>
+
                 </div>
-                <button onclick="book()" type="button" class="btn btn-outline-default btn-block rounded font-weight-bold waves-effect waves-light" style="font-size:1rem;-webkit-border-radius:10em!important;border-radius:10em!important;margin-top: 150px;">Start Booking</button>
-            </form>
+                <!-- End of Tab -->
+
+                <div class="mdl-layout__tab-panel" id="record">
+                    <section class="section--center mdl-grid mdl-grid--no-spacing mdl-shadow--2dp">
+                        <div class="mdl-card mdl-cell mdl-cell--12-col">
+                            <div class="mdl-card__supporting-text mdl-grid mdl-grid--no-spacing">
+                                <h4 class="mdl-cell mdl-cell--12-col">Booking Record</h4>
+                                <div class="section__circle-container mdl-cell mdl-cell--2-col mdl-cell--1-col-phone">
+                                    <div class="section__circle-container__circle mdl-color--primary" id="bgimg"></div>
+                                </div>
+                                <div class="section__text mdl-cell mdl-cell--10-col-desktop mdl-cell--6-col-tablet mdl-cell--3-col-phone">
+                                    <small class="card-title mb-1 text-dark font-weight-normal" style="font-size: 0.6rem">BADMINTON COURT</small>
+                                    <h5>Telok Blangah CC <span id="demo-show-snackbar" class="star-ratings-top text-default font-weight-bold popular inline-block" style="font-size: 0.8rem;">
+                                            ★★★★★
+                                        </span></h5>
+                                    <small class="pl-1 text-success">02 Aug 2017 10AM - 12PM</small>
+
+                                </div>
+                                <div class="section__circle-container mdl-cell mdl-cell--2-col mdl-cell--1-col-phone">
+                                    <div class="section__circle-container__circle mdl-color--primary" id="bgimg"></div>
+                                </div>
+                                <div class="section__text mdl-cell mdl-cell--10-col-desktop mdl-cell--6-col-tablet mdl-cell--3-col-phone">
+                                    <small class="card-title mb-1 text-dark font-weight-normal" style="font-size: 0.6rem">BADMINTON COURT</small>
+                                    <h5>Delta Sports Centre <span class="star-ratings-top text-default font-weight-bold popular inline-block" style="font-size: 0.8rem;">
+                                            ★★★★★
+                                        </span></h5>
+                                    <small class="pl-1 text-muted">23 July 2017 10AM - 12PM</small>
+                                </div>
+                                <div class="section__circle-container mdl-cell mdl-cell--2-col mdl-cell--1-col-phone">
+                                    <div class="section__circle-container__circle mdl-color--primary" id="bgimg"></div>
+                                </div>
+                                <div class="section__text mdl-cell mdl-cell--10-col-desktop mdl-cell--6-col-tablet mdl-cell--3-col-phone">
+                                    <small class="card-title mb-1 text-dark font-weight-normal" style="font-size: 0.6rem">BADMINTON COURT</small>
+                                    <h5>Mount Faber Safra<span class="star-ratings-top text-default font-weight-bold popular inline-block" style="font-size: 0.8rem;">
+                                            ★★★★★
+                                        </span></h5>
+                                    <small class="pl-1 text-muted">14 July 2017 9AM - 10AM</small>
+                                </div>
+                            </div>
+                            <div class="mdl-card__actions">
+                                <a href="#" class="mdl-button">Load More...</a>
+                            </div>
+                        </div>
+                    </section>
+                </div>
+
+
+
+
+                <div class="mdl-layout__tab-panel" id="announcement">
+                    <section class="section--center mdl-grid mdl-grid--no-spacing mdl-shadow--2dp">
+                        <div class="mdl-card mdl-cell mdl-cell--12-col">
+                            <div class="mdl-card__supporting-text">
+                                <h4>Announcement</h4>
+                                <p>Please note the following facilities in OCBC Arena are unavailable for public booking on the following dates:</p>
+                                <p><b>Hall 1 (Basketball):</b><br>
+                                    - 27 August - 10 September 2018: Asian Netball Championship 2018<br>
+                                    - 18 September - 23 September 2018: ST Run Race Pack Collection<br>
+                                </p>
+                                <p>
+                                    <b>Hall 3 (Netball & Volleyball):</b><br>
+                                    - 24 August 2018: Singtel Mobile Teambonding (12pm - 6pm)<br>
+                                    - 30 August - 9 September 2018: Asian Netball Championship 2018
+                                </p>
+                                <p>
+                                    Please note the OCBC ​Aquatic Centre will be close​d for events on the following dates: <br>
+                                    - 24 - 28 August 2018 (Competition Pool): Maintenance
+                                </p>
+                            </div>
+                        </div>
+                    </section>
+                </div>
+
+                <footer class="mdl-mega-footer">
+                    <div class="mdl-mega-footer--bottom-section">
+                        <div class="mdl-logo">
+                            OneBooking
+                        </div>
+                        <ul class="mdl-mega-footer--link-list">
+                            <li><a href="#">Help</a></li>
+                            <li><a href="#">Privacy and Terms</a></li>
+                        </ul>
+                    </div>
+                </footer>
+            </main>
         </div>
-    </div>
 
-    <script>
-        function book() {
-            location.href = "./result"
-        }
-    </script>
+        <dialog id="dialog" class="mdl-dialog">
+            <h3 class="mdl-dialog__title">Opps!</h3>
+            <div class="mdl-dialog__content">
+                <p>
+                    Sorry, the slot is currently full. Would you like to be notified when the slot is released.
+                </p>
+            </div>
+            <div class="mdl-dialog__actions">
+                <a href="/result"><button type="button" class="mdl-button" id="notify">Yes, notify me!</button></a>
+                <button type="button" class="mdl-button">No</button>
+            </div>
+        </dialog>
 
-    <% include ../partials/reminder%>
-</body>
 
+<div id="demo-snackbar-example" class="mdl-js-snackbar mdl-snackbar">
+  <div class="mdl-snackbar__text"></div>
+  <button class="mdl-snackbar__action" type="button"></button>
+</div>
+        
+        <script src="https://code.getmdl.io/1.3.0/material.min.js"></script>
+        <script src="js/getmdl-select.min.js"></script>
+        <script type="text/javascript" src="js/moment.js"></script>
+        <script type="text/javascript" src="js/mdDateTimePicker.js"></script>
+        <script>
+            var dialog = new mdDateTimePicker.default({
+                type: 'date',
+                past: moment().subtract(0, 'days'),
+                future: moment().add(90, 'days')
+            });
+            document.getElementById('date').addEventListener('click', function () {
+                dialog.toggle();
+            });
+            // assuming test1 is an input text element
+            document.getElementById('date').addEventListener('onOk', function () {
+                alert(this.value);
+                this.value = x.time.toString();
+            });
+
+            document.getElementById('date').addEventListener('onCancel', function () {
+                alert(this.value);
+                this.value = x.time.toString();
+            });
+
+
+
+            var currentLat = "";
+            var currentLng = "";
+
+            var center = L.bounds([1.56073, 104.11475], [1.16, 103.502]).getCenter();
+            var map = L.map('mapdiv').setView([center.x, center.y], 14);
+
+            var basemap = L.tileLayer('https://maps-{s}.onemap.sg/v3/Default/{z}/{x}/{y}.png', {
+                detectRetina: true,
+                attribution: 'Map data © contributors, <a href="http://SLA.gov.sg">Singapore Land Authority</a>',
+                maxZoom: 18,
+                minZoom: 11
+            });
+
+            map.setMaxBounds([[1.56073, 104.1147], [1.16, 103.502]]);
+
+            basemap.addTo(map);
+
+            var userIcon = L.icon({
+                iconUrl: 'images/user-icon.png',
+//shadowUrl: 'leaf-shadow.png',
+
+                iconSize: [25, 42], // size of the icon
+//shadowSize:   [50, 64], // size of the shadow
+                iconAnchor: [12, 34], // point of the icon which will correspond to marker's location
+//shadowAnchor: [4, 62],  // the same for the shadow
+                popupAnchor: [0, -36] // point from which the popup should open relative to the iconAnchor
+            });
+
+            var badmintonIcon = L.icon({
+                iconUrl: 'images/badminton-rackets.svg',
+//shadowUrl: 'leaf-shadow.png',
+
+                iconSize: [25, 42], // size of the icon
+//shadowSize:   [50, 64], // size of the shadow
+                iconAnchor: [12, 34], // point of the icon which will correspond to marker's location
+//shadowAnchor: [4, 62],  // the same for the shadow
+                popupAnchor: [0, -36] // point from which the popup should open relative to the iconAnchor
+            });
+
+            getLocation();
+
+            var markerBadminton = new L.marker([1.274951, 103.807865], {icon: badmintonIcon, bounceOnAdd: true}) //job[i].jobId
+//.bindPopup(jobInfo[i].content)
+                    .addTo(map);
+
+            function getLocation() {
+                if (navigator.geolocation) {
+                    navigator.geolocation.getCurrentPosition(showPosition);
+                } else {
+                    alert("Geolocation is not supported by this browser.");
+                }
+            }
+
+            function showRoute(toLat, toLng, event = null) {
+//console.log("showRoute: " + toLat);
+
+//L.Routing.osrmv1({profile: 'cycling'});
+
+                if (typeof routing == "undefined" || routing == null) {
+                    if (toLat != "" || toLng != "") {
+//Draw route on map
+                        routing = L.Routing.control({
+                            waypoints: [
+                                L.latLng(currentLat, currentLng),
+                                L.latLng(toLat, toLng)
+                            ],
+                            showAlternatives: false,
+                            routeWhileDragging: true,
+                            useZoomParameter: false,
+                            createMarker: function () {
+                                return null;
+                            },
+                            router: L.Routing.mapbox('pk.eyJ1IjoieGluZ3lpIiwiYSI6ImNqbGphdWRvYjBhMWMza3BuM2F6dDE5amIifQ.dOsU6Tv3_9IBLzxLNcTuow')
+                        }).addTo(map);
+                    }
+                } else {
+                    routing.getPlan().setWaypoints([
+                        L.latLng(currentLat, currentLng),
+                        L.latLng(toLat, toLng),
+                    ]);
+
+//var distance = round(routing._routes[0].summary.totalDistance/1000, 1);
+
+//distanceLabel = $(event.target).find('.distance'); //.closest('row')
+//distanceLabel.text(distance);
+//console.log(distance);
+            }
+            }
+
+            function showPosition(position) {
+
+//console.log(userIcon);				
+                marker = new L.Marker([position.coords.latitude, position.coords.longitude], {icon: userIcon, bounceOnAdd: true}).addTo(map);
+                /*
+                 var popup = L.popup()
+                 .setLatLng([position.coords.latitude, position.coords.longitude]) 
+                 .setContent('You are here!')
+                 .openOn(map);
+                 */
+
+                map.panTo(marker.getLatLng());
+
+                marker.bindPopup('You are here!');
+
+                currentLat = position.coords.latitude;
+                currentLng = position.coords.longitude;
+                //console.log(position.coords.latitude + " - " + position.coords.longitude);
+//console.log(locationMarker.getLatLng());	
+                console.log('Before: ' + currentLat + " - " + currentLng);
+                showRoute(1.274951, 103.807865);
+            }
+
+
+
+
+            (function () {
+                'use strict';
+                //var dialogButton = document.querySelector('.dialog-button');
+                var dialogButton = document.querySelector('#fullslot');
+
+                var dialog = document.querySelector('#dialog');
+                if (!dialog.showModal) {
+                    dialogPolyfill.registerDialog(dialog);
+                }
+                dialogButton.addEventListener('click', function () {
+                    dialog.showModal();
+                });
+                dialog.querySelector('button:not([disabled])').
+                        addEventListener('click', function () {
+                            dialog.close();
+                            //alert('haha');
+                        });
+            })();
+            //# sourceURL=pen.js
+
+(function() {
+  'use strict';
+  var snackbarContainer = document.querySelector('#demo-snackbar-example');
+  var showSnackbarButton = document.querySelector('#demo-show-snackbar');
+  var handler = function(event) {
+    showSnackbarButton.style.backgroundColor = '';
+  };
+  showSnackbarButton.addEventListener('touchstart', function() {
+    'use strict';
+    showSnackbarButton.style.backgroundColor = '#' +
+        Math.floor(Math.random() * 0xFFFFFF).toString(16);
+    var data = {
+      message: 'Button color changed.',
+      timeout: 2000,
+      actionHandler: handler,
+      actionText: 'Undo'
+    };
+    snackbarContainer.MaterialSnackbar.showSnackbar(data);
+  });
+}());
+
+        </script>
+    </body>
 </html>

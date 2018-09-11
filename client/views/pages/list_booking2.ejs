@@ -11,24 +11,43 @@
 
 <body>
   <div class="text-center">
-    <h2>My Bookings</h2>
+    <h2>My Booking</h2>
 
     <hr style="width: 90%">
 
-    <div class="center-block ml-3 text-left" style="line-height: 0.8; width: 90%">
+    <div class="center-block ml-5 text-left pl-5" style="line-height: 0.8; width: 90%">
       <h4>Badminton court</h4>
       <p>Telok Blangah CC</p>
-      <p>450 Telok Blangah Street 31, Singapore 108943</p>
+      <p>450 Telok Blangah Street 31, 108943</p>
       <p>2 Aug 2018</p>
-      <p>10AM-12PM</p>
+      <p data-toggle="modal" data-target="#basicExampleModal">8PM-9PM</p>
       <div>
-        <a href="" class="m=0 p=0" style="position: relative; margin-left: -5px">
-          <button type="button" class="btn btn-default">View in map</button>
+        <a href="/" class="m=0 p=0" style="position: relative; margin-left: -5px">
+          <button type="button" class="btn btn-default">Back To Home</button>
         </a>
       </div>
     </div>
   </div>
-
+    
+    <!-- Modal -->
+    <div class="modal fade" id="basicExampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">Reminder</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+              Today you have an existing booking with Telok Blangah CC. Estimated travel time is 35 mins.
+          </div>
+          <div class="modal-footer">
+            <a href="/note"><button type="button" class="btn btn-default">OK</button></a>
+          </div>
+        </div>
+      </div>
+    </div>
   <% include ../partials/reminder%>
   <% include ../partials/open_slot%>
 </body>

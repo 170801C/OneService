@@ -15,10 +15,225 @@
 <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
 <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/all.css" integrity="sha384-hWVjflwFxL6sNzntih27bfxkr27PmbbK/iSvJ+a4+0owXq79v+lsFkW54bOGbiDQ" crossorigin="anonymous">
-<h3 class="p-4" onclick="home()">✕</h3>
+<meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="description" content="A front-end template that helps you build fast, modern mobile web apps.">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0">
+    <title>OneBooking</title>
 
+    <!-- Add to homescreen for Chrome on Android -->
+    <meta name="mobile-web-app-capable" content="yes">
+    <link rel="icon" sizes="192x192" href="images/android-desktop.png">
+
+    <!-- Add to homescreen for Safari on iOS -->
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="apple-mobile-web-app-title" content="Material Design Lite">
+    <link rel="apple-touch-icon-precomposed" href="images/ios-desktop.png">
+
+    <!-- Tile icon for Win8 (144x144 + tile color) -->
+    <meta name="msapplication-TileImage" content="images/touch/ms-touch-icon-144x144-precomposed.png">
+    <meta name="msapplication-TileColor" content="#3372DF">
+
+    <link rel="shortcut icon" href="images/favicon.png">
+
+    <!-- SEO: If your mobile URL is different from the desktop URL, add a canonical link to the desktop page https://developers.google.com/webmasters/smartphone-sites/feature-phones -->
+    <!--
+    <link rel="canonical" href="http://www.example.com/">
+    -->
+
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:regular,bold,italic,thin,light,bolditalic,black,medium&amp;lang=en">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <link rel="stylesheet" href="https://code.getmdl.io/1.3.0/material.deep_purple-pink.min.css">
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="css/getmdl-select.min.css">
+    <link rel="stylesheet" href="css/mdDateTimePicker.css">
+    <link rel="stylesheet" href="css/leaflet.css" />
+    <link rel="stylesheet" href="js/leaflet-routing-machine.css" />
+    <script src="js/leaflet.js"></script>
+    <script src="js/bouncemarker.js"></script>
+
+    <script src="js/leaflet-routing-machine.min.js"></script>
+
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/dialog-polyfill/0.4.2/dialog-polyfill.min.css">
+
+    <script src="js/leaflet.js"></script>
+    <script src="js/bouncemarker.js"></script>
+
+    <script src="js/leaflet-routing-machine.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/dialog-polyfill/0.4.2/dialog-polyfill.min.js"></script>
+    <style>
+        #view-source {
+            position: fixed;
+            display: block;
+            right: 0;
+            bottom: 0;
+            margin-right: 40px;
+            margin-bottom: 40px;
+            z-index: 900;
+        }
+
+        #mdl-menu {
+            /*z-index: 901;*/
+        }
+
+        .mdl-color--primary-dark, .mdl-button--colored {
+            background-color: #2BBBAD !important;
+        }
+
+        .mdl-color--primary#bgimg{
+            background-image: url("images/safra.jpg");
+            background-position: center; /* Center the image */
+        }
+
+        .text-default {
+            color: #2bbbad!important;
+        }
+        
+        .text-success {
+            color: green;
+        }
+        
+        .text-muted{
+            color: grey;
+        }
+    </style>
+<script src="https://code.getmdl.io/1.3.0/material.min.js"></script>
+<script src="js/getmdl-select.min.js"></script>
+<script type="text/javascript" src="js/moment.js"></script>
+<script type="text/javascript" src="js/mdDateTimePicker.js"></script>
 <script>
-    function home() {
-        location.href = "./";
+    var dialog = new mdDateTimePicker.default({
+        type: 'date',
+        past: moment().subtract(0, 'days'),
+        future: moment().add(90, 'days')
+    });
+    document.getElementById('date').addEventListener('click', function () {
+        dialog.toggle();
+    });
+    // assuming test1 is an input text element
+    document.getElementById('date').addEventListener('onOk', function () {
+        alert(this.value);
+        this.value = x.time.toString();
+    });
+
+    document.getElementById('date').addEventListener('onCancel', function () {
+        alert(this.value);
+        this.value = x.time.toString();
+    });
+
+
+
+    var currentLat = "";
+    var currentLng = "";
+
+    var center = L.bounds([1.56073, 104.11475], [1.16, 103.502]).getCenter();
+    var map = L.map('mapdiv').setView([center.x, center.y], 14);
+
+    var basemap = L.tileLayer('https://maps-{s}.onemap.sg/v3/Default/{z}/{x}/{y}.png', {
+        detectRetina: true,
+        attribution: 'Map data © contributors, <a href="http://SLA.gov.sg">Singapore Land Authority</a>',
+        maxZoom: 18,
+        minZoom: 11
+    });
+
+    map.setMaxBounds([[1.56073, 104.1147], [1.16, 103.502]]);
+
+    basemap.addTo(map);
+
+    var userIcon = L.icon({
+        iconUrl: 'images/user-icon.png',
+//shadowUrl: 'leaf-shadow.png',
+
+        iconSize: [25, 42], // size of the icon
+//shadowSize:   [50, 64], // size of the shadow
+        iconAnchor: [12, 34], // point of the icon which will correspond to marker's location
+//shadowAnchor: [4, 62],  // the same for the shadow
+        popupAnchor: [0, -36] // point from which the popup should open relative to the iconAnchor
+    });
+
+    var badmintonIcon = L.icon({
+        iconUrl: 'images/badminton-rackets.svg',
+//shadowUrl: 'leaf-shadow.png',
+
+        iconSize: [25, 42], // size of the icon
+//shadowSize:   [50, 64], // size of the shadow
+        iconAnchor: [12, 34], // point of the icon which will correspond to marker's location
+//shadowAnchor: [4, 62],  // the same for the shadow
+        popupAnchor: [0, -36] // point from which the popup should open relative to the iconAnchor
+    });
+
+    getLocation();
+
+    var markerBadminton = new L.marker([1.274951, 103.807865], {icon: badmintonIcon, bounceOnAdd: true}) //job[i].jobId
+//.bindPopup(jobInfo[i].content)
+            .addTo(map);
+
+    function getLocation() {
+        if (navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition(showPosition);
+        } else {
+            alert("Geolocation is not supported by this browser.");
+        }
+    }
+
+    function showRoute(toLat, toLng, event = null) {
+//console.log("showRoute: " + toLat);
+
+//L.Routing.osrmv1({profile: 'cycling'});
+
+        if (typeof routing == "undefined" || routing == null) {
+            if (toLat != "" || toLng != "") {
+//Draw route on map
+                routing = L.Routing.control({
+                    waypoints: [
+                        L.latLng(currentLat, currentLng),
+                        L.latLng(toLat, toLng)
+                    ],
+                    showAlternatives: false,
+                    routeWhileDragging: true,
+                    useZoomParameter: false,
+                    createMarker: function () {
+                        return null;
+                    },
+                    router: L.Routing.mapbox('pk.eyJ1IjoieGluZ3lpIiwiYSI6ImNqbGphdWRvYjBhMWMza3BuM2F6dDE5amIifQ.dOsU6Tv3_9IBLzxLNcTuow')
+                }).addTo(map);
+            }
+        } else {
+            routing.getPlan().setWaypoints([
+                L.latLng(currentLat, currentLng),
+                L.latLng(toLat, toLng),
+            ]);
+
+//var distance = round(routing._routes[0].summary.totalDistance/1000, 1);
+
+//distanceLabel = $(event.target).find('.distance'); //.closest('row')
+//distanceLabel.text(distance);
+//console.log(distance);
+    }
+    }
+
+    function showPosition(position) {
+
+//console.log(userIcon);				
+        marker = new L.Marker([position.coords.latitude, position.coords.longitude], {icon: userIcon, bounceOnAdd: true}).addTo(map);
+        /*
+         var popup = L.popup()
+         .setLatLng([position.coords.latitude, position.coords.longitude]) 
+         .setContent('You are here!')
+         .openOn(map);
+         */
+
+        map.panTo(marker.getLatLng());
+
+        marker.bindPopup('You are here!');
+
+        currentLat = position.coords.latitude;
+        currentLng = position.coords.longitude;
+        //console.log(position.coords.latitude + " - " + position.coords.longitude);
+//console.log(locationMarker.getLatLng());	
+        console.log('Before: ' + currentLat + " - " + currentLng);
+        showRoute(1.274951, 103.807865);
     }
 </script>
